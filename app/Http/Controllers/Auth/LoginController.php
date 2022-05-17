@@ -41,7 +41,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-    }
+    }//end of construct
+
+    protected function credentials(Request $request)
+    {
+        if(is_numeric($request->get('email')))
+        {
+            return ['phone' => $request->get('email'),'password' => $request->get('password')];
+        }
+        return $request->only($this->username(), 'password');
+    }//end of credential
 
     protected function validateLogin(Request $request)
     {

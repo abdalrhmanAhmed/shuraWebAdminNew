@@ -31,10 +31,12 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request){
+        
     	$validator = Validator::make($request->all(), [
             'phone' => 'required',
             'password' => 'required',
         ]);
+        
         if ($validator->fails())
         {
             return $this->apiResponse(null,$validator->errors(),400);
@@ -57,7 +59,6 @@ class AuthController extends Controller
     public function register(Request $request) {
         $validator = Validator::make($request->all(),[
             'name'=> 'required',
-            'email'=> 'required|unique:users|email',
             'password'=> 'required',
             'phone'=> 'required',
             'country'=>'required',
