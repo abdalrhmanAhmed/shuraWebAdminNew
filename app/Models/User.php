@@ -78,4 +78,9 @@ class User extends Authenticatable implements JWTSubject
     public function consoleServices(){
         return $this->hasManyThrough(consoleServices::class,Console::class,'user_id','console_id','id','id')->withDefault(0);
     }
+
+    public function verfications()
+    {
+        return $this->hasMany(User_verfication::class, 'user_id');
+    }//end of verfication code
 }

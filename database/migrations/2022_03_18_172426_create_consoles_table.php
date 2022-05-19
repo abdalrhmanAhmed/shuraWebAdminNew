@@ -18,7 +18,13 @@ class CreateConsolesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('bio')->nullable();
+            $table->integer('age')->nullable();
             $table->string('skills')->nullable();
+            $table->string('education_degree')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->string('bank_no')->nullable();
+            $table->bigInteger('category')->nullable();
+            $table->bigInteger('services')->nullable();
             $table->string('experiance')->nullable();
             $table->longText('description')->nullable();
             $table->softDeletes();

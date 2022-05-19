@@ -20,8 +20,8 @@ class Service extends Model
         return $this->belongsTo('App\Models\Catiguries', 'categurie_id', 'id');
     }
 
-    public function consoleServices()
+    public function consoles()
     {
-        return $this->hasMany('App\Models\ConsoleServices', 'id', 'service_id');
+        return $this->belongsToMany(Console::class, 'console_services');
     }
 }

@@ -61,6 +61,7 @@
 
 </script>
 @endif
+@include('errors.exceptions')
 				<!-- row -->
 				<div class="row">
 					<div class="col-xl-12">

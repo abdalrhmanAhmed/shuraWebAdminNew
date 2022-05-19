@@ -19,9 +19,6 @@ class CreateConsoleServicesTable extends Migration
             $table->unsignedBigInteger('service_id');
             $table->foreign('console_id')->references('id')->on('consoles');
             $table->foreign('service_id')->references('id')->on('services');
-            $table->integer('type');
-            $table->decimal('price',12,2);
-            $table->softDeletes();
             $table->timestamps();
         });
     }

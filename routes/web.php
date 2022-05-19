@@ -38,6 +38,12 @@ Route::controller(App\Http\Controllers\user\userController::class)->group(functi
     Route::get('/user/profile', 'profile')->name('user.profile');
 });
 
+#############################console Route####################################
+Route::controller(App\Http\Controllers\console\consoleController::class)->group(function(){
+    Route::get('/consoles', 'index')->name('consoles');
+    Route::post('/consoles/store', 'store')->name('console.store');
+    Route::get('getServices/{id}', 'getServices')->name('getServices');
+});
 
 #############################Catiguries Route############################
 Route::controller(App\Http\Controllers\catiguries\CatiguriesController::class)->group(function(){

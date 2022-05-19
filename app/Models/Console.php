@@ -17,11 +17,15 @@ class Console extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
-
-    public function consoleServices()
+    public function services()
     {
-        return $this->hasMany('App\Models\ConsoleServices', 'id', 'console_id');
-    }
+        return $this->belongsToMany(Service::class, 'console_services');
+    }//end of services relationship
+
+    public function consoleFile()
+    {
+        return $this->hasMany(ConsoleFiles::class);
+    }//end of console files relationship
 
     #available time relationship
     public function times()

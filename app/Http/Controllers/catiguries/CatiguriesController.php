@@ -43,21 +43,28 @@ class CatiguriesController extends Controller
      */
     public function store(catiguriesRequest $request)
     {
-        $validated = $request->validated();
-        $catiguries = new Catiguries();
-        $catiguries->name = $request->name;
-        $catiguries->description = $request->description;
-        if($request->hasFile('icon'))
+        try{
+            $validated = $request->validated();
+            $catiguries = new Catiguries();
+            $catiguries->name = $request->name;
+            $catiguries->description = $request->description;
+            if($request->hasFile('icon'))
+            {
+                $image = $request->icon;
+                $imageExt = $image->getClientOriginalExtension();
+                $imageName = now().'.'.$imageExt;
+                $image->move('upload/catiguriesIcon/',$imageName);
+                $catiguries->icon = 'upload/catiguriesIcon/'.$imageName;
+            }
+            $catiguries->save();
+            session()->flash('success');
+            return redirect()->back();
+        }//end of try
+
+        catch(\Exception $e)
         {
-            $image = $request->icon;
-            $imageExt = $image->getClientOriginalExtension();
-            $imageName = now().'.'.$imageExt;
-            $image->move('upload/catiguriesIcon/',$imageName);
-            $catiguries->icon = 'upload/catiguriesIcon/'.$imageName;
-        }
-        $catiguries->save();
-        session()->flash('add');
-        return redirect()->back();
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }//end of catch
     }
 
     /**

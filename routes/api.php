@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\catiguriesServices\CatiguriesController;
 use App\Http\Controllers\Api\catiguriesServices\ConsoleServicesController;
 use App\Http\Controllers\Api\catiguriesServices\OrdersController;
 use App\Http\Controllers\Api\catiguriesServices\TimeController;
+use App\Http\Controllers\Api\console\consoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,9 +32,16 @@ Route::group([
 ], function ($router) {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/consoleRegister', [AuthController::class, 'consoleRegister']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
+    Route::post('/create_otp', [AuthController::class, 'verficationCode']);
+    Route::post('/check_otp', [AuthController::class, 'checkOTP']);
+    Route::post('/change_password', [AuthController::class, 'changePassword']);
+
+
+    Route::post('/updateProfile', [consoleController::class, 'updateProfile']);
 });
 /*
 |--------------------------------------------------------------------------
