@@ -8,7 +8,6 @@ use App\Http\Requests\servicesRequest;
 use App\Models\Catiguries;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use League\Glide\Server;
 
 class servicesController extends Controller
 {
@@ -39,7 +38,7 @@ class servicesController extends Controller
             $services->icon = 'upload/servicesIcon/'.$imageName;
         }
         $services->save();
-        session()->flash('add');
+        session()->flash('success');
         return redirect()->back();
     }
 

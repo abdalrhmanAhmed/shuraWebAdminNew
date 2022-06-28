@@ -72,6 +72,10 @@ class User extends Authenticatable implements JWTSubject
             return 'no profile for this type of user';
         }
     }
+    public function getImagePathAttribute()
+    {
+        return asset('upload/catiguriesIcon/' . $this->photo);
+    }
     public function wallet(){
         return $this->hasOne(Wallet::class,'user_id','id')->withDefault(0);
     }

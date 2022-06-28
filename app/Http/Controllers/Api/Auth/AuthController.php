@@ -30,7 +30,7 @@ class AuthController extends Controller
      */
     public $smsservices;
     public function __construct(verficationServices $smsservices) {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'consoleRegister', 'verficationCode', 'checkOTP', 'changePassword']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'consoleRegister', 'image','verficationCode', 'checkOTP', 'changePassword']]);
         $this->smsservices = $smsservices;
     }
     /**
@@ -75,6 +75,7 @@ class AuthController extends Controller
         if($validator->fails()){
             return $this->apiResponse(null,$validator->errors(),400);
         }
+        // return $request;
         try{
             $user = new User();
             $user->name = $request->name;
@@ -88,9 +89,12 @@ class AuthController extends Controller
             ####################insert user photo#################################3
             if ($files = $request->file('photo')) {
                 //store file into document folder
-                $file = $request->photo->store('public/upload/catiguriesIcon');
+                $file = $request->file('photo');
+                // $file = $request->photo->store('/upload/catiguriesIcon');
+                $name = $file->getClientOriginalName();
+                $file->move(public_path().'/upload/catiguriesIcon', $name);  
                 //store your file into database
-                $user->photo = $file;
+                $user->photo = $name;
             }
             $user->save();
             #insert user wallet
@@ -238,7 +242,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 180,
+            'expires_in' => auth()->factory()->getTTL() * 180*60*24*30*12,
             'user' => auth()->user()
         ]);
     }
@@ -304,5 +308,14 @@ class AuthController extends Controller
         ]);
 
         return $this->apiResponse(null,'password updated successfully',204);
+    }
+
+    public function image(Request $request)
+    {
+        $file = $request->file('file');
+        $extention = $file->getClientOriginalExtension();
+        $full_file_name = time() . '.' . $extention;
+        $file->storeAs('upload', $full_file_name, ['disks' => 'local']);
+        return "uploaded successfully";
     }
 }

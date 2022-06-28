@@ -28,39 +28,8 @@
 				<!-- breadcrumb -->
 @endsection
 @section('content')
-@if(session()->has('add'))
-<script>
-	window.onload = function() {
-		notif({
-			msg: "تم اضافة الخدمة بنجاح",
-			type: "success"
-		})
-	}
-
-</script>
-@endif
-@if(session()->has('update'))
-<script>
-	window.onload = function() {
-		notif({
-			msg: "تم تعديل الخدمة بنجاح",
-			type: "success"
-		})
-	}
-
-</script>
-@endif
-@if(session()->has('delete'))
-<script>
-	window.onload = function() {
-		notif({
-			msg: "تم حذف الخدمة بنجاح",
-			type: "error"
-		})
-	}
-
-</script>
-@endif
+@include('notifications.notify')<!-- include notifications -->
+@include('errors.exceptions')<!-- include errors exceptions -->
 				<!-- row -->
 				<div class="row">
 					<div class="col-xl-12">

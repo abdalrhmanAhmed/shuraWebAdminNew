@@ -13,12 +13,12 @@ class ConsoleServices extends Model
     ];
     public function console()
     {
-        return $this->belongsTo('App\Models\Console', 'console_id', 'id');
+        return $this->belongsTo(Console::class, 'console_id', 'id');
     }
 
     public function service()
     {
-        return $this->hasOne('App\Models\Services', 'service_id', 'id');
+        return $this->hasOne('App\Models\Service', 'id', 'service_id');
     }
 
     public function orders()
@@ -26,6 +26,6 @@ class ConsoleServices extends Model
         return $this->hasMany('App\Models\Order', 'id', 'console_service_id');
     }
     public function user(){
-        return $this->hasOneThrough(User::class,Console::class,'id','id','id','id')->withDefault(0);
+        return $this->hasOneThrough(User::class,Console::class,'id','id','console_id','user_id')->withDefault(0);
     }
 }

@@ -25,7 +25,7 @@ class userController extends Controller
      */
     public function index()
     {
-        $users = User::All();
+        $users = Auth::user();
         
         return $this->apiResponse($users,'ok',200);
     }

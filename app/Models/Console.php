@@ -14,7 +14,7 @@ class Console extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function services()
@@ -35,6 +35,9 @@ class Console extends Model
     ########## this relationship has 4 keys to pass in #####
     public function userWallet(){
         return $this->hasOneThrough(Wallet::class,User::class,'id','user_id','user_id','id')->withDefault(0);
+    }
+    public function consoleServices(){
+        return $this->hasMany(ConsoleServices::class,'console_id','id');
     }
 }
 

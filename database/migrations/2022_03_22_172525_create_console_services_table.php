@@ -17,8 +17,8 @@ class CreateConsoleServicesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('console_id');
             $table->unsignedBigInteger('service_id');
-            $table->foreign('console_id')->references('id')->on('consoles');
-            $table->foreign('service_id')->references('id')->on('services');
+            $table->foreign('console_id')->references('id')->on('consoles')->onDelete('cascade');
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->timestamps();
         });
     }

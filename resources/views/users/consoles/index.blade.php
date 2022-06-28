@@ -50,9 +50,8 @@
 							<table class="table card-table table-striped table-vcenter text-nowrap mb-0" id="example1">
 								<thead>
 									<tr>
-										<th class="wd-lg-20p"><span></span></th>
-										<th class="wd-lg-8p"><span>المستخدم</span></th>
-										<th class="wd-lg-20p"><span>إسم المستشار</span></th>
+										<th class="wd-lg-20p"><span>الصورة الشخصية</span></th>
+										<th class="wd-lg-8p"><span>إسم المستخدم</span></th>
 										<th class="wd-lg-20p"><span>البريد اﻹلكتروني</span></th>
 										<th class="wd-lg-20p"><span>رقم حساب البنك</span></th>
 										<th class="wd-lg-20p"><span>رقم الهاتف</span></th>
@@ -66,15 +65,13 @@
 										<tr>
 											<td>
 												@if($console->photo)
-													<img class="rounded-circle avatar-md mr-2" src="{{$console->photo}}">
+													<img class="rounded-circle avatar-md mr-2" src="{{$console->image_path}}">
 												@else
 													<img class="rounded-circle avatar-md mr-2" src="{{URL::asset('assets/img/faces/1.jpg')}}">
 												@endif
 											</td>
-											<td>{{$console->name}}</td>
-											<td>
-												{{$console->consolename}}
-											</td>
+											<td>{{$console->name ?? ''}}</td>
+
 											<td class="text-center text-primary">
 												{{$console->email}}
 											</td>
@@ -111,19 +108,19 @@
 												<a href="" data-target="#modaldemo6{{ $console->id }}" data-toggle="modal" data-effect="effect-scale"  class="modal-effect btn btn-sm btn-info">
 													<i class="las la-pen"></i>
 												</a>
-												<a href="" data-console-id="{{$console->id}}" data-target="#modaldemo5" data-toggle="modal" data-effect="effect-scale"  class="modal-effect btn btn-sm btn-danger">
+												<a href="" data-console-id="{{$console->id}}" data-target="#modaldemo5{{$console->id}}" data-toggle="modal" data-effect="effect-scale"  class="modal-effect btn btn-sm btn-danger">
 													<i class="las la-trash"></i>
 												</a>
 											</td>
 										</tr>
 										{{-- delete console modal --}}
-										<div class="modal" id="modaldemo5">
+										<div class="modal" id="modaldemo5{{$console->id}}">
 											<div class="modal-dialog modal-dialog-centered" role="document">
 												<div class="modal-content modal-content-demo">
 													<div class="modal-header">
 														<h6 class="modal-title">حذف المستخدم</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
 													</div>
-													<form action="" method="POST">
+													<form action="{{ route('console.delete', $console->id) }}" method="POST">
 														@csrf
 														<div class="modal-body">
 															<div class="row">
@@ -148,7 +145,7 @@
 													<div class="modal-header">
 														<h6 class="modal-title">تعديل المستشار</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
 													</div>
-													<form action="" method="POST" enctype="multipart/form-data">
+													<form action="{{ route('console.update', $console->id) }}" method="POST" enctype="multipart/form-data">
 														{{ csrf_field() }}
 														<div class="modal-body">
 															<div class="row">
@@ -200,6 +197,16 @@
 															</div>
 															<div class="row">
 																<div class="col">
+																	<label for="">الحالة</label>
+																	<select name="status" class="form-control" id="">
+																		<option value="" selected disabled>--حدد الحالة--</option>
+																		<option value="1">مفعل</option>
+																		<option value="0">غير مفعل</option>
+																	</select>
+																</div>
+															</div>
+															<div class="row">
+																<div class="col">
 																	<label for="">البلد</label>
 																	<input type="text" name="country" class="form-control" value="{{ $console->country }}">
 																</div>
@@ -208,7 +215,7 @@
 																	<select name="categories" class="form-control" id="">
 																		<option value="" selected disabled>--حدد الإستشارة--</option>
 																		@foreach ($categories as $category)
-																			<option value="{{ $category->id }}" {{$console->profile->category == $category->id ? 'selected' : ''}}>{{ $category->name }}</option>
+																			<option value="{{ $category->id }}" >{{ $category->name }}</option>
 																		@endforeach
 																	</select>
 																</div>
@@ -225,8 +232,8 @@
 															</div>
 															<div class="row">
 																<label for="">المرفقات</label>&nbsp;
-																<span class="text-danger">*ارفق الشهادة الجامعية وشهادات الخبرة والصورة الشخصية</span>
-																<input type="file" class="form-control" name="photo[]" multiple>
+																{{-- <span class="text-danger">*ارفق الشهادة الجامعية وشهادات الخبرة والصورة الشخصية</span> --}}
+																<input type="file" class="form-control" name="photo" >
 															</div>
 														</div>
 														<div class="modal-footer">
@@ -330,8 +337,8 @@
 								</div>
 								<div class="row">
 									<label for="">المرفقات</label>&nbsp;
-									<span class="text-danger">*ارفق الشهادة الجامعية وشهادات الخبرة والصورة الشخصية</span>
-									<input type="file" class="form-control" name="photos[]" multiple>
+									{{-- <span class="text-danger">*ارفق الشهادة الجامعية وشهادات الخبرة والصورة الشخصية</span> --}}
+									<input type="file" class="form-control" name="photo">
 								</div>
 							</div>
 							<div class="modal-footer">

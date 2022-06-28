@@ -107,7 +107,7 @@
 												<tr>
 													<td>
 														@if($user->photo)
-															<img class="rounded-circle avatar-md mr-2" src="{{$user->photo}}">
+															<img class="rounded-circle avatar-md mr-2" src="{{$user->image_path}}">
 														@else
 															<img class="rounded-circle avatar-md mr-2" src="{{URL::asset('assets/img/faces/1.jpg')}}">
 														@endif

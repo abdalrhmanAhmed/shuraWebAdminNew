@@ -43,6 +43,8 @@ Route::controller(App\Http\Controllers\console\consoleController::class)->group(
     Route::get('/consoles', 'index')->name('consoles');
     Route::post('/consoles/store', 'store')->name('console.store');
     Route::get('getServices/{id}', 'getServices')->name('getServices');
+    Route::post('/consoles/update/{id}', 'update')->name('console.update');
+    Route::post('/consoles/delete/{id}', 'destroy')->name('console.delete');
 });
 
 #############################Catiguries Route############################

@@ -17,7 +17,7 @@ class CreateCatiguriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('icon')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

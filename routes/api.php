@@ -39,7 +39,7 @@ Route::group([
     Route::post('/create_otp', [AuthController::class, 'verficationCode']);
     Route::post('/check_otp', [AuthController::class, 'checkOTP']);
     Route::post('/change_password', [AuthController::class, 'changePassword']);
-
+    Route::post('/image', [AuthController::class, 'image']);
 
     Route::post('/updateProfile', [consoleController::class, 'updateProfile']);
 });
@@ -49,7 +49,7 @@ Route::group([
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['jwt.verify']], function() {
-    Route::get('/users',[userController::class,'index']);
+    Route::get('/user',[userController::class,'index']);
     Route::get('/user/{id}',[userController::class,'show']);
     Route::post('/users',[userController::class,'store']);
     Route::post('/user/update/{id}',[userController::class,'update']);
@@ -60,12 +60,16 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/console/timeDestroy',[TimeController::class,'consoleTimeDestroy']) ;
     Route::post('/console/load',[userController::class,'consoleLoad']) ;
     Route::post('/client/load',[userController::class,'clientLoad']) ;
+    Route::get('/user-wallet',[userController::class,'get_wallet']);
     Route::get('/services/all',[ConsoleServicesController::class,'getServices']);
     Route::post('/console/service/store',[ConsoleServicesController::class,'store']);
     Route::post('/service/consoles',[ConsoleServicesController::class,'getConsoles']);
-    Route::get('/user-wallet',[userController::class,'get_wallet']);
-
+    
+    Route::post('/console/orders',[OrdersController::class,'get_console_orders']);
+    Route::post('/client/orders',[OrdersController::class,'get_client_orders']);
     Route::post('/orders/create',[OrdersController::class,'create']);
+    Route::post('/orders/confirm',[OrdersController::class,'confirm_order']);
+    Route::post('/orders/reject',[OrdersController::class,'reject_order']);
 });
 /*
 |--------------------------------------------------------------------------

@@ -18,4 +18,7 @@ class Order extends Model
     {
         return $this->belongsTo('App\Models\ConsoleServices', 'console_service_id', 'id');
     }
+    public function AvailableTime(){
+        return $this->belongsTo(AvailableTime::class,'available_time_id','id');
+    }
 }

@@ -28,39 +28,7 @@
 				<!-- breadcrumb -->
 @endsection
 @section('content')
-@if(session()->has('add'))
-<script>
-	window.onload = function() {
-		notif({
-			msg: "تم اضافة الصنف بنجاح",
-			type: "success"
-		})
-	}
-
-</script>
-@endif
-@if(session()->has('update'))
-<script>
-	window.onload = function() {
-		notif({
-			msg: "تم تعديل الصنف بنجاح",
-			type: "success"
-		})
-	}
-
-</script>
-@endif
-@if(session()->has('delete'))
-<script>
-	window.onload = function() {
-		notif({
-			msg: "تم حذف الصنف بنجاح",
-			type: "error"
-		})
-	}
-
-</script>
-@endif
+@include('notifications.notify')
 @include('errors.exceptions')
 				<!-- row -->
 				<div class="row">

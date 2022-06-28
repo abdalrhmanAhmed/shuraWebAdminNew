@@ -34,6 +34,7 @@ class consoleController extends Controller
         {
             return $this->apiResponse(null,$validator->errors(),400);
         }
+        $services = [];
         $console = Console::where('user_id', auth()->user()->id)->first();
         $console->update([
             'bio' => $request->bio,
@@ -46,8 +47,9 @@ class consoleController extends Controller
             'experiance' => $request->experiance,
             'description' => $request->description
         ]);
-        $console->services()->syncWithoutDetaching($request->services);
-        return $this->apiResponse(null,'console profile updated successfully',204);
+        $services[] = $request->services;
+        $console->services()->syncWithoutDetaching($services);
+        return $this->apiResponse($console,'console profile updated successfully',204);
 
     }
 }

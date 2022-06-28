@@ -19,7 +19,7 @@ class CreateServicesTable extends Migration
             $table->foreign('categurie_id')->references('id')->on('catiguries')->onDelete('cascade');
             $table->string('name');
             $table->string('icon')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

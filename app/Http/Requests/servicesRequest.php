@@ -26,7 +26,6 @@ class servicesRequest extends FormRequest
         return [
             'name'=> 'required',
             'catigurie_id' => 'required',
-            'description'=> 'required',
         ];
     }
 }
